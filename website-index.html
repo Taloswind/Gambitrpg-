@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GambitRPG</title>
+<meta name="description" content="GambitRPG: a tabletop RPG played with a deck of cards. Free modules, how to play, and where to buy.">
+<style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almendra:wght@700&family=Libre+Franklin:wght@400;600;800&family=Silkscreen&display=swap">
+<style>
+/* Layout: a card table at night. Felt-black ground, the logo's red as the only ink, the game's own pixel art doing the illustrating. */
+:root{
+  --ink:#060807; --felt:#181313; --line:#302626;
+  --red:#b3161e; --red-hi:#d8262f; --red-deep:#6e0d12;
+  --bone:#f3eee6; --muted:#a69890;
+  --display:"Almendra","Georgia",serif;
+  --body:"Libre Franklin",system-ui,sans-serif;
+  --pixel:"Silkscreen",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ink);color:var(--bone);font:16px/1.6 var(--body)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+img{max-width:100%}
+.px{image-rendering:pixelated}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.15;letter-spacing:.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(2rem,5vw,3.1rem)}
+h3{font-size:1.35rem}
+.eyebrow{font:400 .72rem var(--pixel);letter-spacing:.08em;text-transform:uppercase;color:var(--red-hi)}
+section{padding-block:clamp(56px,9vw,100px);border-top:1px solid var(--line)}
+p{max-width:62ch;margin:0}
+.lede{color:var(--muted);font-size:1.06rem}
+.stack{display:grid;gap:18px}
+.stack > *{min-width:0}
+:focus-visible{outline:2px solid var(--red-hi);outline-offset:3px}
+.note{font:400 .7rem var(--pixel);color:var(--muted);margin-top:22px;letter-spacing:.04em}
+
+/* nav */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--ink) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:8px}
+.logo{display:block;flex:none}
+.logo img{height:64px;display:block}
+nav{display:flex;gap:24px;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:600;font-size:1rem;color:var(--bone)}
+nav a:hover{color:var(--red-hi)}
+
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 22px;font:800 .85rem var(--body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:2px solid var(--red);background:var(--red);color:var(--bone);cursor:pointer;border-radius:3px}
+.btn:hover{background:var(--red-deep);border-color:var(--red-deep)}
+.btn.ghost{background:transparent;border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--bone)}
+
+/* hero */
+.hero{border-top:0;padding-block:clamp(36px,6vw,80px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.hero .mark{width:min(460px,100%)}
+.pcard{border-radius:6%/4.4%;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.hand{display:flex;gap:8px}
+.hand img{flex:1;min-width:0;width:0}
+.mini-fan{display:flex;margin:6px 0 4px}
+.mini-fan img{width:64px;margin-right:-22px;transform:rotate(var(--r))}
+.hero .copy{display:grid;gap:22px;min-width:0}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem)}
+.hero h1 em{font-style:normal;color:var(--red-hi)}
+.meta{font:400 .72rem var(--pixel);color:var(--muted);display:flex;gap:18px;flex-wrap:wrap}
+.jokers{position:relative;height:440px}
+.jokers img{position:absolute;top:30px;width:220px;border-radius:10px;box-shadow:0 22px 50px rgba(0,0,0,.6);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.jokers .reaper{left:calc(50% - 200px);transform:rotate(-10deg)}
+.jokers .jester{left:calc(50% - 20px);transform:rotate(9deg)}
+.jokers:hover .reaper{transform:rotate(-16deg) translate(-16px,-6px)}
+.jokers:hover .jester{transform:rotate(15deg) translate(16px,-6px)}
+
+/* two decks */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.split > *{min-width:0}
+.decks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.deck{background:var(--felt);border:1px solid var(--line);border-radius:8px;padding:24px;display:grid;gap:10px}
+.deck .suits{font-size:2.4rem;line-height:1;letter-spacing:.15em}
+.deck .r{color:var(--red-hi)}
+.deck p{color:var(--muted);font-size:.95rem}
+.attr{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;margin-top:6px}
+.chip{font:400 .68rem var(--pixel);padding:4px 8px;border-radius:3px;text-transform:uppercase}
+.chip.red{background:var(--red);color:var(--bone)}
+.chip.blk{background:var(--bone);color:var(--ink)}
+
+/* character */
+.thane{display:grid;gap:14px;background:var(--felt);border:1px solid var(--line);border-radius:8px;padding:24px}
+.thane .who{display:flex;align-items:center;gap:14px}
+.thane .who img{width:64px;height:64px}
+.thane .cards{width:100%}
+.thane ul{margin:0;padding-left:18px;color:var(--muted);font-size:.95rem;display:grid;gap:4px}
+
+/* difficulty ladder */
+.ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.rung{padding:20px 18px;display:grid;gap:8px;align-content:start;border-left:1px solid var(--line);background:var(--felt)}
+.rung:first-child{border-left:0}
+.rung .pips{display:flex;gap:4px}
+.rung .pips i{width:12px;height:16px;border-radius:2px;background:var(--red)}
+.rung h3{font-size:1.2rem}
+.rung p{font-size:.85rem;color:var(--muted)}
+.rung p b{color:var(--bone);font-weight:600}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+.step{display:grid;gap:10px;align-content:start;border-top:2px solid var(--red);padding-top:18px}
+.step .n{font:400 .75rem var(--pixel);color:var(--red-hi)}
+.step p{color:var(--muted);font-size:.95rem}
+
+/* jokers detail */
+.jk{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.jk article{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;background:var(--felt);border:1px solid var(--line);border-radius:8px;padding:20px}
+.jk article > div{display:grid;gap:8px;min-width:0}
+.jk img{width:120px;border-radius:6px}
+.jk p{color:var(--muted);font-size:.95rem}
+
+.state{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.state div{border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;gap:6px}
+.state .mini{width:38px;height:54px;border-radius:4px;background:var(--bone);border:2px solid var(--ink);box-shadow:0 0 0 1px var(--line)}
+.state .mini.flip{background:repeating-linear-gradient(45deg,var(--red) 0 5px,var(--red-deep) 5px 10px)}
+.state .mini.side{transform:rotate(90deg);margin:8px 8px 0}
+.state p{color:var(--muted);font-size:.92rem}
+
+blockquote{margin:0;font:700 clamp(1.3rem,3vw,1.9rem)/1.35 var(--display);max-width:30ch;text-wrap:balance}
+blockquote cite{display:block;margin-top:14px;font:400 .72rem var(--pixel);color:var(--muted);font-style:normal}
+.dealer .wrap{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+.dealer img{width:150px}
+
+.video{margin-top:28px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000;max-width:960px}
+.video video{display:block;width:100%;aspect-ratio:16/9;max-width:100%}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.gallery figure{margin:0;display:grid;gap:10px;min-width:0}
+.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.gallery figcaption{color:var(--muted);font-size:.9rem}
+@media (max-width:760px){.gallery{grid-template-columns:1fr}}
+
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:32px}
+.review{display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:20px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:8px;background:var(--felt);text-decoration:none}
+.review:hover{border-color:var(--red-hi)}
+.review .thumb{position:relative;display:block}
+.review .thumb img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px}
+.review .play{position:absolute;inset:0;display:grid;place-items:center;font-size:2.4rem;color:var(--bone);text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.review b{font:700 1.4rem var(--display)}
+.review .stack > span:last-child{color:var(--muted);font-size:.9rem}
+@media (max-width:600px){.review{grid-template-columns:1fr}}
+
+/* shop */
+.shop-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{font:600 .85rem var(--body);background:transparent;color:var(--muted);border:1px solid var(--line);padding:8px 14px;border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;margin-top:32px}
+.item{background:var(--felt);border:1px solid var(--line);border-radius:8px;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden}
+.cover{aspect-ratio:5/3;max-width:100%;display:grid;place-items:center;position:relative;background:linear-gradient(160deg,var(--red-deep),var(--ink));font:700 1.5rem/1.2 var(--display);text-align:center;padding:16px}
+.cover.soon{background:repeating-linear-gradient(45deg,#1f1919 0 10px,#191414 10px 20px);color:var(--muted)}
+.tag{position:absolute;top:10px;left:10px;font:400 .65rem var(--pixel);text-transform:uppercase;background:var(--bone);color:var(--ink);padding:3px 8px;border-radius:3px}
+.tag.free{background:var(--red);color:var(--bone)}
+.item .body{padding:18px;display:grid;gap:6px;align-content:start}
+.item p{color:var(--muted);font-size:.92rem}
+.item .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-top:1px solid var(--line)}
+.price{font:400 .85rem var(--pixel)}
+.item .btn{padding:9px 14px;font-size:.75rem}
+.item .btn[disabled]{background:transparent;border-color:var(--line);color:var(--muted);cursor:default}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:32px}
+.tiles a{display:grid;gap:4px;padding:20px;border:1px solid var(--line);border-radius:6px;text-decoration:none;background:var(--felt)}
+.tiles a b{font:700 1.1rem var(--display)}
+.tiles a span{color:var(--muted);font-size:.85rem}
+.tiles a:hover{border-color:var(--red-hi)}
+
+footer{border-top:1px solid var(--line);padding-block:40px;color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer nav a{color:var(--bone)}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--bone);color:var(--ink);padding:12px 18px;border-radius:6px;font-weight:600;font-size:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
+
+@media (max-width:900px){
+  .hero .wrap,.split,.dealer .wrap{grid-template-columns:1fr}
+  .jokers{height:330px}
+  .jokers img{width:160px}
+  .jokers .reaper{left:calc(50% - 150px)}
+  .ladder{grid-template-columns:1fr}
+  .rung{border-left:0;border-top:1px solid var(--line)}
+  .rung:first-child{border-top:0}
+  .steps{grid-template-columns:1fr 1fr}
+  .jk{grid-template-columns:1fr}
+  header .wrap{flex-wrap:wrap;justify-content:center;gap:8px 16px}
+  .logo img{height:52px}
+  nav{gap:16px;justify-content:center}
+  nav a{font-size:.95rem}
+  .hero .mark{display:none}
+}
+@media (max-width:520px){
+  .decks,.steps,.state{grid-template-columns:1fr}
+  .jk article{grid-template-columns:84px 1fr}
+  .jk img{width:84px}
+}
+@media (prefers-reduced-motion:reduce){.jokers img{transition:none}}
+</style>
+
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#top"><img src="art/logo-black.jpg" alt="GambitRPG"></a>
+  <nav aria-label="Main">
+    <a href="#game">The game</a><a href="#play">How to play</a><a href="#shop">Free modules</a><a href="#buy">Where to buy</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div class="copy">
+    <img class="mark" src="art/logo-black.jpg" alt="GambitRPG logo: a black top hat holding two joker cards">
+    <h1>Do you dare <em>Gambit</em> on your next adventure?</h1>
+    <p class="lede">A tabletop RPG played with a deck of cards. Your cards are your very life, and each one is a piece of your soul. The Dealer tells the story and knows what's coming next. You decide when to stop pushing your luck.</p>
+    <div class="btns">
+      <a class="btn" href="#buy">Get the game</a>
+      <a class="btn ghost" href="#shop">Free modules</a>
+    </div>
+    <div class="meta"><span>1 Dealer + 1–5 players</span><span>Any standard deck</span><span>In person or online</span></div>
+  </div>
+  <div class="jokers" aria-hidden="true">
+    <img class="reaper pcard" src="cards/joker1.jpg" alt="">
+    <img class="jester pcard" src="cards/joker2.jpg" alt="">
+  </div>
+</div></section>
+
+<section id="game"><div class="wrap">
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">The game</span>
+      <h2>No dice. No character sheet. Just the deck.</h2>
+      <p class="lede">GambitRPG was built so anyone can sit down and play, at any age, without a stack of reading first. The rules are light, so the table's choices and the Dealer's story do the heavy lifting. Adventures from other systems adapt easily, and you don't need much space, which leaves room for snacks.</p>
+      <p class="lede">The deck splits in two. Players build characters from one half. The Dealer draws fate from the other.</p>
+    </div>
+    <div class="thane">
+      <div class="who"><img class="px" src="art/thane.png" alt="Pixel portrait of Thane the explorer"><div><span class="eyebrow">Example character</span><h3>Thane the Explorer</h3></div></div>
+      <div class="hand" role="img" aria-label="Thane's five cards: 7 of spades, 7 of hearts, 9 of hearts, king of hearts, ace of spades"><img class="pcard" src="cards/7s.jpg" alt=""><img class="pcard" src="cards/7h.jpg" alt=""><img class="pcard" src="cards/9h.jpg" alt=""><img class="pcard" src="cards/Kh.jpg" alt=""><img class="pcard" src="cards/As.jpg" alt=""></div>
+      <ul>
+        <li>Three hearts and two spades: moderately strong, with some brains.</li>
+        <li>A pair of 7s: doubles, so a drawn 7 is extra lucky.</li>
+        <li>Laid flat on the table where everyone can see them.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="decks">
+    <div class="deck">
+      <span class="eyebrow">Player cards · 26</span>
+      <div class="mini-fan" aria-hidden="true"><img class="pcard" style="--r:-8deg" src="cards/Ah.jpg" alt=""><img class="pcard" style="--r:-3deg" src="cards/Qh.jpg" alt=""><img class="pcard" style="--r:3deg" src="cards/Js.jpg" alt=""><img class="pcard" style="--r:8deg" src="cards/As.jpg" alt=""></div>
+      <h3>Hearts and spades</h3>
+      <p>Pick any 5 to make your character. Name them and you're ready to play.</p>
+      <div class="attr"><span class="chip red">Red</span><span>Physical: strength, climbing, endurance</span><span class="chip blk">Black</span><span>Mental: guile, magic, skill</span></div>
+    </div>
+    <div class="deck">
+      <span class="eyebrow">Dealer deck · 28</span>
+      <div class="mini-fan" aria-hidden="true"><img class="pcard" style="--r:-8deg" src="cards/Qd.jpg" alt=""><img class="pcard" style="--r:-3deg" src="cards/Kc.jpg" alt=""><img class="pcard" style="--r:3deg" src="cards/joker1.jpg" alt=""><img class="pcard" style="--r:8deg" src="cards/joker2.jpg" alt=""></div>
+      <h3>Diamonds, clubs and two jokers</h3>
+      <p>Every check is dealt from here. The pile shrinks with each draw and the odds shift, until a joker forces a reshuffle.</p>
+      <p>Face values on your cards are your luck. Match a drawn number and you score an extra success.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="play"><div class="wrap">
+  <span class="eyebrow">How to play</span>
+  <h2>Every check is a gamble.</h2>
+  <div class="video"><video id="htp-video" controls preload="none" playsinline poster="art/how-to-play-poster.jpg" src="art/how-to-play.mp4" aria-label="How to play GambitRPG, a 4-minute video with narration and subtitles"></video></div>
+  <p class="lede" style="margin-top:16px">The Dealer calls a check whenever an action could fail. Each one has a color, physical or mental, and a difficulty: the number of successes you need.</p>
+  <div class="ladder">
+    <div class="rung"><div class="pips"><i></i></div><h3>Easy</h3><p><b>Red:</b> climb a rope<br><b>Black:</b> hide from a patrol</p></div>
+    <div class="rung"><div class="pips"><i></i><i></i></div><h3>Normal</h3><p><b>Red:</b> attack an enemy<br><b>Black:</b> spot an ambush</p></div>
+    <div class="rung"><div class="pips"><i></i><i></i><i></i></div><h3>Hard</h3><p><b>Red:</b> break down a solid door<br><b>Black:</b> disarm a deadly trap</p></div>
+    <div class="rung"><div class="pips"><i></i><i></i><i></i><i></i></div><h3>Very Hard</h3><p><b>Red:</b> carry a friend back to town<br><b>Black:</b> turn an enemy to your side</p></div>
+    <div class="rung"><div class="pips"><i></i><i></i><i></i><i></i><i></i></div><h3>Impossible</h3><p><b>Red:</b> topple a stone statue<br><b>Black:</b> talk down the big boss</p></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="n">Step 1</span><h3>The deal</h3><p>The Dealer deals cards one at a time. Assign each one to a card of yours before the next comes.</p></div>
+    <div class="step"><span class="n">Step 2</span><h3>Match</h3><p>A card that matches the check's color or one of your face values is a success. Doubles score twice.</p></div>
+    <div class="step"><span class="n">Step 3</span><h3>Blight or fold</h3><p>A miss is a failure. Flip one of your cards to blight it and keep going, or accept the failure and stop.</p></div>
+    <div class="step"><span class="n">Step 4</span><h3>Push your luck</h3><p>Passed? Take one more draw, all or nothing. Win and the extra successes boost your result. Lose and the whole check fails.</p></div>
+  </div>
+
+  <div class="jk">
+    <article><img class="pcard" src="cards/joker1.jpg" alt="The Reaper joker card"><div><span class="eyebrow">Joker</span><h3>The Reaper</h3><p>Ends the check in failure, whatever you've already drawn. Then the Dealer reshuffles.</p></div></article>
+    <article><img class="pcard" src="cards/joker2.jpg" alt="The Jester joker card"><div><span class="eyebrow">Joker</span><h3>The Jester</h3><p>Ends the check as a pass, and your current successes count as extras. Then the Dealer reshuffles.</p></div></article>
+  </div>
+
+  <div class="state">
+    <div><span class="mini flip"></span><h3>Blighted</h3><p>Flipped over. Fatigue or stress locks the card until it's restored.</p></div>
+    <div><span class="mini flip side"></span><h3>Injured</h3><p>A blight turned sideways. Much harder to heal.</p></div>
+    <div><span class="mini"></span><h3>Down or dead</h3><p>All five blighted and you're disabled. All five injured and your character dies.</p></div>
+  </div>
+</div></section>
+
+<section class="dealer"><div class="wrap">
+  <img class="px" src="art/guardian.png" alt="Pixel art of the temple guardian">
+  <div class="stack">
+    <span class="eyebrow">The Dealer</span>
+    <blockquote>The Dealer may know your upcoming fate, but is never allowed to change the order of the draw.<cite>GambitRPG Rule Book</cite></blockquote>
+    <p class="lede">The Dealer narrates, sets the stakes and taunts you about the next card. The Dealer's Handbook covers quick encounter building, legendary actions for bosses and item-card loot. There's no currency to track.</p>
+  </div>
+</div></section>
+
+<section id="gallery"><div class="wrap">
+  <span class="eyebrow">At the table</span>
+  <h2>Cards, items and heroes.</h2>
+  <div class="gallery">
+    <figure><img src="art/anna.jpg" alt="Illustration of Anna, a red-haired warrior with a claymore, a shadowy horned beast, her five cards and item cards"><figcaption>Anna, a hero built from five cards and her items</figcaption></figure>
+    <figure><img src="art/table.jpg" alt="A character's five cards laid out on a wooden table above Opportunist, Katana and Fire Wand item cards, next to a notebook of dungeon sketches"><figcaption>A character on the table, with item cards and the Dealer's notes</figcaption></figure>
+    <figure><img src="art/decks.jpg" alt="The GambitRPG base deck and Fantasy Items deck with the Reaper and Jester jokers"><figcaption>The base deck, the Fantasy Items deck and both jokers</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="shop"><div class="wrap">
+  <div class="shop-head">
+    <div class="stack">
+      <span class="eyebrow">Modules</span>
+      <h2>Free adventures to start with.</h2>
+      <p class="lede">Each module is a ready-to-run first session that can grow into a campaign. Read them free in Google Docs.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter products">
+      <button id="f-all" data-f="all" aria-pressed="true">All</button>
+      <button id="f-free" data-f="free" aria-pressed="false">Free</button>
+      <button id="f-soon" data-f="soon" aria-pressed="false">Coming soon</button>
+    </div>
+  </div>
+  <div class="grid" id="products"></div>
+</div></section>
+
+<section id="buy"><div class="wrap">
+  <span class="eyebrow">Where to buy</span>
+  <h2>Get the boxed game.</h2>
+  <p class="lede" style="margin-top:16px">The box holds the official pixel-art deck with both jokers, fantasy item cards and the rule book.</p>
+  <div class="tiles" id="retailers"></div>
+</div></section>
+
+<section id="press"><div class="wrap">
+  <span class="eyebrow">Recognition</span>
+  <h2>Made in Manitoba.</h2>
+  <p class="lede" style="margin-top:16px">Created by Robert Shaw (Taloswind): 20+ years of D&amp;D, a former SNES speedrun world-record holder and a volunteer firefighter.</p>
+  <div class="reviews">
+  <a class="review" href="https://youtu.be/G0FG4mbbSwQ">
+    <span class="thumb"><img src="art/review.jpg" alt="Video thumbnail: international review of GambitRPG from Anna"><span class="play" aria-hidden="true">▶</span></span>
+    <span class="stack"><span class="eyebrow">Video review</span><b>An international review from Anna</b><span>Watch on YouTube</span></span>
+  </a>
+  <a class="review" href="https://www.youtube.com/watch?v=YkC0lTaHFAc">
+    <span class="thumb"><img src="art/review2.jpg" alt="Video thumbnail: Its JustSol's review of GambitRPG"><span class="play" aria-hidden="true">▶</span></span>
+    <span class="stack"><span class="eyebrow">Video review</span><b>Its JustSol's review</b><span>Watch on YouTube</span></span>
+  </a>
+  </div>
+  <div class="tiles">
+    <a href="https://mbgamedesigners.ca/"><b>Manitoba Game Designers</b><span>Proud member of the local designers' group</span></a>
+    <a href="https://canadaroles.ca/doku.php?id=2026_canada_roles_awards"><b>Canada Roles Awards 2026</b><span>Nominee, Rules Design</span></a>
+    <a href="https://www.kickstarter.com/projects/gambitrpg/gambitrpg"><b>Funded on Kickstarter</b><span>CA$8,140 from 48 backers, 2023</span></a>
+    <a href="https://keycon.org/42/manitoba-game-designers/"><b>KeyCon 42</b><span>Featured Manitoba game designer</span></a>
+    <a href="https://gmshoe.wordpress.com/2023/10/28/qa-robert-shaw-gambitrpg/"><b>GM Shoe interview</b><span>Q&amp;A with Robert Shaw</span></a>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© GambitRPG · Robert Shaw (Taloswind) · Manitoba, Canada</span>
+  <nav aria-label="Social" style="display:flex;gap:18px">
+    <a href="https://instagram.com/gambitrpg">Instagram</a>
+    <a href="https://linktr.ee/gambitrpg">Linktree</a>
+    <a href="https://mbgamedesigners.ca/">Manitoba Game Designers</a>
+  </nav>
+</div></footer>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+// ── Edit these lists to change the shop and the retailers ──
+// type: "free" | "paid" | "soon". Paid items: set type:"paid", a price, and a url once ready.
+const PRODUCTS = [
+  {title:"The Broken Trail", kind:"Module · Dark Western", type:"free", url:"https://docs.google.com/document/d/15XG_JqNk1i8yJiJsghflUnqhWbgQYEXvqmUTPmIEtJ0/edit?usp=drivesdk", blurb:"A posse of bounty hunters tracks the Falon Gang across a hostile frontier. Rated Starter, built for high combat."},
+  {title:"Horror High", kind:"Module · Horror", type:"free", url:"https://docs.google.com/document/d/1BQr8mm1PcAOVH6HoQ4CgNnZ3VYpIg8Ogm2ObmuhwXYs/edit?usp=drivesdk", blurb:"Stuck in detention as a storm cuts the power at Summerville High. Students are missing, and the new substitute knows why."},
+  {title:"The Blackwater Escort", kind:"Module · Steampunk aviation", type:"free", url:"https://docs.google.com/document/d/1SPBTgU9hJgp-Ia7IlslJqGhrUbiMhY6UO8UoxY7YivU/edit?usp=drivesdk", blurb:"Fly a crippled carrier's convoy through a storm while Directorate drones and the ace pilot Viper hunt you down."},
+  {title:"Rule Book", kind:"Core rules · PDF", type:"soon", blurb:"Character creation, checks, blights, jokers and group play."},
+  {title:"Dealer's Handbook", kind:"Core rules · PDF", type:"soon", blurb:"Difficulty, encounter balancing, legendary actions and loot."},
+  {title:"Print & Play Decks", kind:"Printable cards · PDF", type:"soon", blurb:"The pixel-art base deck and fantasy item deck, laid out for home printing."},
+  {title:"Monster Deck", kind:"Expansion", type:"soon", blurb:"New foes for the Dealer to throw at the party."},
+  {title:"Player Advancement", kind:"Expansion", type:"soon", blurb:"Cards for growing heroes across a campaign."},
+  {title:"Sci-Fi / Space Deck", kind:"Expansion", type:"soon", blurb:"Take the gamble to the stars."},
+];
+const RETAILERS = [
+  {name:"GameKnight Games", note:"519 Osborne St, Winnipeg · CA$34.99", url:"https://gameknight.ca/products/rpg-gambit"},
+  {name:"McNally Robinson", note:"Booksellers · order online", url:"https://www.mcnallyrobinson.com/669185056266/taloswind/gambit-rpg"},
+  {name:"Compose Dream Games", note:"Online marketplace", url:"https://composedreamgames.com/marketplace/gambitrpg"},
+  {name:"I Want That Stuff", note:"Online store", url:"https://iwantthatstuff.store/"},
+  {name:"Toymasters", note:"Manitoba toy and game stores", url:"https://www.toymastersmb.ca/"},
+  {name:"Forbidden Games and Collectibles", note:"In store · find them on Facebook", url:"https://www.facebook.com/forbiddengamescv/"},
+  {name:"Colossal Cards & Collectables", note:"In store · find them on Facebook", url:"https://www.facebook.com/Colossal.CV/"},
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderProducts(filter){
+  $("#products").innerHTML = PRODUCTS.filter(p => filter==="all" || p.type===filter).map(p => {
+    const tag = p.type==="free" ? '<span class="tag free">Free</span>' : p.type==="soon" ? '<span class="tag">Coming soon</span>' : '<span class="tag">PDF</span>';
+    const price = p.type==="free" ? "Free" : p.type==="soon" ? "—" : "$" + p.price.toFixed(2);
+    const btn = p.type==="soon" ? '<button class="btn" disabled>Soon</button>'
+      : p.url ? `<a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">${p.type==="free" ? "Read free" : "Buy PDF"}</a>`
+      : `<button class="btn" data-buy="${esc(p.title)}">Buy PDF</button>`;
+    return `<article class="item"><div class="cover ${p.type==="soon"?"soon":""}">${tag}${esc(p.title)}</div>
+      <div class="body"><span class="eyebrow">${esc(p.kind)}</span><h3>${esc(p.title)}</h3><p>${esc(p.blurb)}</p></div>
+      <div class="foot"><span class="price">${price}</span>${btn}</div></article>`;
+  }).join("");
+}
+$("#retailers").innerHTML = RETAILERS.map(r => `<a href="${esc(r.url)}"><b>${esc(r.name)}</b><span>${esc(r.note)}</span></a>`).join("");
+
+document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", x===b));
+  renderProducts(b.dataset.f);
+}));
+
+let t;
+function toast(msg){ const el=$("#toast"); el.textContent=msg; el.hidden=false; clearTimeout(t); t=setTimeout(()=>el.hidden=true,2800); }
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-buy]");
+  if (b) toast(`Mockup: "${b.dataset.buy}" would go to checkout.`);
+});
+renderProducts("all");
+</script>
+
+</body>
+</html>

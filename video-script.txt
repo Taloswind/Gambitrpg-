@@ -1,0 +1,66 @@
+GambitRPG: How to Play - narration script
+Voice: Callum (ElevenLabs). Times are where each line starts in the video.
+
+
+COLD OPEN
+0:00.2  No dice. No character sheets.
+0:03.2  Just a deck of cards, and the nerve to draw one more.
+0:07.4  This is GambitRPG. Let's learn it in four minutes.
+
+WHAT YOU NEED
+0:13.1  You need one Dealer, up to five players, and a deck of cards.
+0:18.5  The official Gambit deck works best, but any standard deck will do.
+0:23.4  Split it in two. Hearts and spades are the player cards.
+0:27.6  Diamonds, clubs and the two jokers are the Dealer's deck.
+
+RED AND BLACK
+0:32.5  To make a character, choose five player cards.
+0:36.5  There are only two attributes. Red is physical: strength, climbing, endurance. Black is mental: magic, guile and skill.
+0:47.3  Five red cards and you're a brute. Five black and you're a fragile genius.
+0:53.1  Most heroes land somewhere in between.
+
+MEET THANE
+0:57.2  This is Thane the explorer.
+0:59.5  Three hearts and two spades: strong, with some brains.
+1:03.9  Face values matter too. They're your luck.
+1:07.6  Two sevens are doubles, which makes seven an extra-lucky number for Thane.
+1:12.8  Cards go face up on the table. Name your character, and you're done.
+
+THE CHECK
+1:18.6  Any time you try something that could fail, the Dealer calls a check.
+1:23.4  A check has two parts: a color and a difficulty.
+1:27.2  The difficulty is how many successes you need.
+1:30.3  One for easy, up to five for impossible.
+
+THE TEMPLE DOOR
+1:35.4  Thane wants to break down a temple door.
+1:38.2  That's a hard physical check, so he needs three red successes.
+1:42.5  The Dealer deals one card at a time. A black 2 isn't red, and Thane has no 2. That's a miss.
+1:50.4  On a miss you choose: accept the failure, or blight a card by flipping it to keep going. Thane blights his ace.
+1:58.3  A red ace is the right color, so it's a success. Each card takes one match per check, so it goes on his 9.
+2:06.8  A black 7. Wrong color, but it matches his doubles: two successes.
+2:12.7  Three successes. The door is down.
+
+THE JOKERS
+2:18.4  Two cards in the Dealer's deck change everything.
+2:21.8  The Reaper ends your check in failure on the spot, no matter what you've already drawn.
+2:27.9  The Jester ends it in success, and any successes you already have count as extras.
+2:34.4  Either joker forces the Dealer to shuffle the discards back in.
+2:38.8  Until then the deck keeps shrinking, and the odds keep shifting.
+
+PUSH YOUR LUCK
+2:44.5  Passed a check? You can push your luck.
+2:47.6  Take one more card, all or nothing.
+2:50.4  A hit and the extras make the result even better. A miss and you lose the whole check.
+2:56.9  And the Dealer knows what's coming.
+2:59.4  The Dealer can't change the order of the draw, but is free to taunt you about it.
+
+BLIGHTS AND INJURIES
+3:05.6  A flipped card is blighted. Fatigue or stress locks it until it's restored.
+3:11.7  Turn a blight sideways and it's an injury, which is much harder to heal.
+3:17.2  If all five cards are blighted, you're down. If all five are injured, your character is dead.
+
+DO YOU DARE
+3:24.9  That's GambitRPG: simple to learn, fun to play, anywhere, anytime, with anyone.
+3:32.0  Grab a free module at gambitrpg.com, and find the boxed game at your local game store.
+3:39.7  Do you dare Gambit on your next adventure?
