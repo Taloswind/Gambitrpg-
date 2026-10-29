@@ -320,11 +320,6 @@ footer nav a{color:var(--bone)}
       <h2>Free adventures to start with.</h2>
       <p class="lede">Each module is a ready-to-run first session that can grow into a campaign. Read them free in Google Docs.</p>
     </div>
-    <div class="filters" role="group" aria-label="Filter products">
-      <button id="f-all" data-f="all" aria-pressed="true">All</button>
-      <button id="f-free" data-f="free" aria-pressed="false">Free</button>
-      <button id="f-soon" data-f="soon" aria-pressed="false">Coming soon</button>
-    </div>
   </div>
   <div class="grid" id="products"></div>
 </div></section>
@@ -373,17 +368,11 @@ footer nav a{color:var(--bone)}
 
 <script>
 // ── Edit these lists to change the shop and the retailers ──
-// type: "free" | "paid" | "soon". Paid items: set type:"paid", a price, and a url once ready.
+// type: "free" | "paid". Paid items: type:"paid", a price, and a url to where it's sold.
 const PRODUCTS = [
   {title:"The Broken Trail", kind:"Module · Dark Western", type:"free", url:"https://docs.google.com/document/d/15XG_JqNk1i8yJiJsghflUnqhWbgQYEXvqmUTPmIEtJ0/edit?usp=drivesdk", blurb:"A posse of bounty hunters tracks the Falon Gang across a hostile frontier. Rated Starter, built for high combat."},
   {title:"Horror High", kind:"Module · Horror", type:"free", url:"https://docs.google.com/document/d/1BQr8mm1PcAOVH6HoQ4CgNnZ3VYpIg8Ogm2ObmuhwXYs/edit?usp=drivesdk", blurb:"Stuck in detention as a storm cuts the power at Summerville High. Students are missing, and the new substitute knows why."},
   {title:"The Blackwater Escort", kind:"Module · Steampunk aviation", type:"free", url:"https://docs.google.com/document/d/1SPBTgU9hJgp-Ia7IlslJqGhrUbiMhY6UO8UoxY7YivU/edit?usp=drivesdk", blurb:"Fly a crippled carrier's convoy through a storm while Directorate drones and the ace pilot Viper hunt you down."},
-  {title:"Rule Book", kind:"Core rules · PDF", type:"soon", blurb:"Character creation, checks, blights, jokers and group play."},
-  {title:"Dealer's Handbook", kind:"Core rules · PDF", type:"soon", blurb:"Difficulty, encounter balancing, legendary actions and loot."},
-  {title:"Print & Play Decks", kind:"Printable cards · PDF", type:"soon", blurb:"The pixel-art base deck and fantasy item deck, laid out for home printing."},
-  {title:"Monster Deck", kind:"Expansion", type:"soon", blurb:"New foes for the Dealer to throw at the party."},
-  {title:"Player Advancement", kind:"Expansion", type:"soon", blurb:"Cards for growing heroes across a campaign."},
-  {title:"Sci-Fi / Space Deck", kind:"Expansion", type:"soon", blurb:"Take the gamble to the stars."},
 ];
 const RETAILERS = [
   {name:"GameKnight Games", note:"519 Osborne St, Winnipeg · CA$34.99", url:"https://gameknight.ca/products/rpg-gambit"},
